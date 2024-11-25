@@ -1,7 +1,10 @@
 export default function Home() {
     return (
-        <div>
-            <h1>awaaz.ai</h1>
-        </div>
+        <section
+            id="home"
+            className="w-full min-h-screen flex justify-center items-center"
+        >
+            <h1 className="text-3xl">AI-Powered Nepali Creative Platform</h1>
+        </section>
     );
 }
