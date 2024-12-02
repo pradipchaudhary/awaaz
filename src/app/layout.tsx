@@ -1,18 +1,22 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
+import { Plus_Jakarta_Sans, Outfit } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import ErrorBoundary from "@/components/ErrorBoundary";
+import SEO from "@/components/SEO";
+import ScrollToTop from "@/components/ScrollToTop";
 
-// Load local fonts
-const geistSans = localFont({
-    src: "./fonts/GeistVF.woff",
-    variable: "--font-geist-sans",
-    weight: "100 900",
+// Load Google fonts
+const jakarta = Plus_Jakarta_Sans({
+    subsets: ["latin"],
+    variable: "--font-jakarta",
 });
-const geistMono = localFont({
-    src: "./fonts/GeistMonoVF.woff",
-    variable: "--font-geist-mono",
-    weight: "100 900",
+
+const outfit = Outfit({
+    subsets: ["latin"],
+    variable: "--font-outfit",
+    weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
 // Metadata API
@@ -49,43 +53,21 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
     children,
-}: Readonly<{
+}: {
     children: React.ReactNode;
-}>) {
+}) {
     return (
         <html lang="en">
-            <head>
-                {/* Static Meta Tags */}
-                <meta charSet="UTF-8" />
-                <meta
-                    name="keywords"
-                    content="Awaaz , Nepali vocal performances, AI-powered platform, storytelling, lyric generation, video automation, Nepali content creation, social media integration"
-                />
-                <meta name="author" content="Pradip Chaudhary" />
-                <meta name="robots" content="index, follow" />
-            </head>
+            <SEO />
             <body
-                className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black text-white`}
+                className={`${jakarta.variable} ${outfit.variable} font-sans antialiased bg-black text-white`}
             >
-                <Header />
-                <main className="container mx-auto flex max-w-5xl flex-1 flex-col px-4">
+                <ErrorBoundary>
+                    <Header />
                     {children}
-                </main>
-                <footer>
-                    <div className="flex items-center justify-center py-8">
-                        <span className="text-sm text-gray-400">
-                            Made by
-                            <a
-                                href="https://twitter.com/Ibelick"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="ml-1 text-gray-50"
-                            >
-                                @Pradip Chaudhary
-                            </a>
-                        </span>
-                    </div>
-                </footer>
+                    <Footer />
+                    <ScrollToTop />
+                </ErrorBoundary>
             </body>
         </html>
     );
