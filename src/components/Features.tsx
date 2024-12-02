@@ -16,7 +16,7 @@ const features = [
         description:
             "Transform raw recordings into studio-quality vocals with advanced AI noise reduction and clarity enhancement.",
         icon: MicrophoneIcon,
-        color: "from-blue-400 to-indigo-500",
+        color: "text-blue-400 group-hover:text-blue-300",
         delay: 0.2,
         demo: "Try voice enhancement →",
     },
@@ -25,7 +25,7 @@ const features = [
         description:
             "Create stunning music videos automatically with AI-generated visuals synchronized to your audio.",
         icon: VideoCameraIcon,
-        color: "from-indigo-400 to-blue-500",
+        color: "text-indigo-400 group-hover:text-indigo-300",
         delay: 0.3,
         demo: "See video creation →",
     },
@@ -34,7 +34,7 @@ const features = [
         description:
             "Get creative with AI-powered Nepali lyrics generation, tailored to your style and theme.",
         icon: SparklesIcon,
-        color: "from-blue-500 to-indigo-400",
+        color: "text-blue-400 group-hover:text-blue-300",
         delay: 0.4,
     },
     {
@@ -65,55 +65,53 @@ const features = [
 
 const Features = () => {
     const { scrollY } = useScroll();
-    const opacity = useTransform(scrollY, [0, 300], [1, 0]);
+
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.1,
+                delayChildren: 0.3,
+            },
+        },
+    };
+
+    const itemVariants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: {
+                type: "spring",
+                stiffness: 100,
+                damping: 10,
+            },
+        },
+    };
 
     return (
         <section className="py-24 relative overflow-hidden" id="features">
-            {/* Enhanced Background Effects */}
+            {/* Simplified Background */}
             <div className="absolute inset-0">
                 <div className="absolute inset-0 bg-gradient-to-b from-black via-blue-900/5 to-black" />
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-900/20 via-transparent to-transparent" />
-                <motion.div
-                    style={{ opacity }}
-                    className="absolute inset-0 bg-[url('/grid.svg')] opacity-20"
-                />
-                {/* Add floating elements */}
-                <div className="absolute inset-0 overflow-hidden">
-                    <motion.div
-                        animate={{
-                            y: [0, -20, 0],
-                            opacity: [0.1, 0.3, 0.1],
-                        }}
-                        transition={{
-                            duration: 5,
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                        }}
-                        className="absolute top-1/4 right-1/4 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl"
-                    />
-                    <motion.div
-                        animate={{
-                            y: [0, 20, 0],
-                            opacity: [0.1, 0.2, 0.1],
-                        }}
-                        transition={{
-                            duration: 7,
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                            delay: 1,
-                        }}
-                        className="absolute bottom-1/4 left-1/4 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl"
-                    />
-                </div>
             </div>
 
             <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                {/* Section Header */}
-                <div className="text-center mb-20">
+                {/* Section Header with enhanced animations */}
+                <motion.div
+                    initial={{ opacity: 0, y: -20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
+                    className="text-center mb-20"
+                >
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
+                        transition={{ delay: 0.2, type: "spring" }}
                         className="inline-flex items-center px-4 py-2 bg-white/5 rounded-full mb-8 backdrop-blur-sm border border-white/10"
                     >
                         <SparklesIcon className="w-5 h-5 text-blue-400 mr-2" />
@@ -123,9 +121,10 @@ const Features = () => {
                     </motion.div>
 
                     <motion.h2
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
                         viewport={{ once: true }}
+                        transition={{ delay: 0.3 }}
                         className="text-4xl md:text-5xl font-bold font-heading mb-6"
                     >
                         <span className="bg-gradient-to-r from-blue-400 to-indigo-600 bg-clip-text text-transparent">
@@ -134,28 +133,34 @@ const Features = () => {
                     </motion.h2>
 
                     <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
                         viewport={{ once: true }}
-                        transition={{ delay: 0.1 }}
+                        transition={{ delay: 0.4 }}
                         className="text-xl text-gray-400 max-w-3xl mx-auto"
                     >
                         Comprehensive suite of AI-powered tools designed to
                         enhance your vocal performances and streamline content
                         creation.
                     </motion.p>
-                </div>
+                </motion.div>
 
-                {/* Enhanced Features Grid */}
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {/* Features Grid with stagger animation */}
+                <motion.div
+                    variants={containerVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+                >
                     {features.map((feature, index) => (
                         <motion.div
                             key={feature.title}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: feature.delay }}
-                            whileHover={{ y: -5 }}
+                            variants={itemVariants}
+                            whileHover={{
+                                y: -5,
+                                transition: { type: "spring", stiffness: 300 },
+                            }}
                             className="group relative p-8 bg-white/5 hover:bg-white/10 
                                 rounded-2xl transition-all duration-300
                                 hover:shadow-2xl hover:shadow-blue-500/10
@@ -168,10 +173,11 @@ const Features = () => {
 
                             {/* Enhanced Icon */}
                             <div
-                                className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${feature.color} bg-opacity-10 mb-5 group-hover:scale-110 transition-transform duration-300 relative overflow-hidden`}
+                                className={`inline-flex p-3 rounded-xl bg-white/5 mb-5 group-hover:scale-110 transition-all duration-300`}
                             >
-                                <feature.icon className="w-6 h-6 text-blue-400 relative z-10" />
-                                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-blue-500/10 to-blue-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                                <feature.icon
+                                    className={`w-6 h-6 ${feature.color} transition-colors duration-300`}
+                                />
                             </div>
 
                             {/* Enhanced Content */}
@@ -202,7 +208,7 @@ const Features = () => {
                             </div>
                         </motion.div>
                     ))}
-                </div>
+                </motion.div>
 
                 {/* Enhanced Call to Action */}
                 <motion.div
@@ -216,15 +222,16 @@ const Features = () => {
                         Ready to elevate your music?
                     </p>
                     <motion.button
-                        whileHover={{ scale: 1.05 }}
+                        whileHover={{ scale: 1.03 }}
                         whileTap={{ scale: 0.95 }}
-                        className="bg-gradient-to-r from-blue-500 to-indigo-600 
-                        px-8 py-4 rounded-full font-semibold
-                        transition duration-200 relative group
-                        shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40"
+                        className="bg-gradient-to-r from-blue-500/90 via-indigo-600/90 to-blue-600/90 
+                            px-7 py-3.5 rounded-full text-[13px] font-medium tracking-wide
+                            shadow-lg shadow-blue-500/[0.15] hover:shadow-blue-500/25
+                            transform transition-all duration-200
+                            relative overflow-hidden"
                     >
                         <span className="relative z-10">Get Started Free</span>
-                        <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-600 to-indigo-700 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+                        <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     </motion.button>
                 </motion.div>
             </div>
