@@ -1,10 +1,24 @@
-export default function Home() {
+"use client";
+import Hero from "@/components/Hero";
+import Features from "@/components/Features";
+import VoiceEnhancement from "@/components/VoiceEnhancement";
+import EmotionDetection from "@/components/EmotionDetection";
+import LyricsGenerator from "@/components/LyricsGenerator";
+import Testimonials from "@/components/Testimonials";
+import CallToAction from "@/components/CallToAction";
+
+const Home = () => {
     return (
-        <section
-            id="home"
-            className="w-full min-h-screen flex justify-center items-center"
-        >
-            <h1 className="text-3xl">AI-Powered Nepali Creative Platform</h1>
-        </section>
+        <main className="min-h-screen">
+            <Hero />
+            <Features />
+            <VoiceEnhancement />
+            <EmotionDetection />
+            <LyricsGenerator />
+            <Testimonials />
+            <CallToAction />
+        </main>
     );
-}
+};
+
+export default Home;
